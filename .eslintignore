@@ -1,0 +1,8 @@
+node_modules
+.eslintrc.js
+package.json
+tsconfig.json
+index.html
+lib
+dist
+*.d.ts
