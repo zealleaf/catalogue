@@ -16,8 +16,7 @@
   },
   "files": [
     "lib",
-    "types",
-    "README.md"
+    "types"
   ],
   "keywords": [
     "ui",

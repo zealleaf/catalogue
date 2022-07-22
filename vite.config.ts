@@ -12,7 +12,7 @@ module.exports = defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'leafvein-catalogue',
+      name: 'catalogue',
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
