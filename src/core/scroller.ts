@@ -1,5 +1,6 @@
 import React from 'react'
 import { debounce } from '@/utils/debounce'
+import { throttle } from '@/utils/throttle'
 import { exportedDomNeeded } from './clickingTheCatalogueItemCausesThePageToScroll'
 
 type scrollHash = boolean
@@ -22,10 +23,15 @@ const findWhichDomMarginTopCloserDebounced = debounce(
   findWhichDomMarginTopCloser as () => unknown,
   200
 )
+const findWhichDomMarginTopCloserThrottled = throttle(
+  findWhichDomMarginTopCloser as () => unknown,
+  20
+)
 
 const DE = document.documentElement
 
 function scroller(
+  isDebounce: boolean,
   scannedDoms: unknown,
   setCurrentAnchor: React.Dispatch<React.SetStateAction<string>>,
   scrollHash?: boolean
@@ -42,7 +48,11 @@ function scroller(
     }
 
     if (!flag$2) {
-      findWhichDomMarginTopCloserDebounced(scannedDoms, setCurrentAnchor, scrollHash)
+      if (isDebounce) {
+        findWhichDomMarginTopCloserDebounced(scannedDoms, setCurrentAnchor, scrollHash)
+      } else {
+        findWhichDomMarginTopCloserThrottled(scannedDoms, setCurrentAnchor, scrollHash)
+      }
     }
   })
 }

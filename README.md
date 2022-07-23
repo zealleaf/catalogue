@@ -45,3 +45,8 @@ export default APP
 | diyItem              | 自定义目录 Item 样式 like \`width: 100px\` or {width: "100px"} | string \| object   | -        | latest |
 | scrollBehavior       | 点击目录的 Item, 页面的滚动行为                                | 'smooth' \| 'none' | 'smooth' | latest |
 | openMoveHorizontally | 目录组件是否跟随主体内容随着屏幕宽度变化而一起移动             | boolean            | false    | latest |
+| isDebounce           | 滚动屏幕时，目录 Item 的激活模式                               | boolean            | true     | latest |
+
+## changeLog
+
+[传送门 🚪](https://zealleaf.github.io/treehouse/packages/@leafvein/catalogue#changeLog)

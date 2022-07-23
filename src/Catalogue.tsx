@@ -15,6 +15,7 @@ interface propsData {
   diyItem?: string
   scrollBehavior?: 'smooth' | 'none'
   openMoveHorizontally?: boolean
+  isDebounce?: boolean
 }
 
 interface catalogueItemData {
@@ -41,7 +42,7 @@ const baseItemSV = `
   white-space: nowrap;
   display: block;
   &:hover {
-    color: #0eda29
+    color: black
   }
 `
 const Catalogue: React.FC<propsData> = (props) => {
@@ -60,7 +61,7 @@ const Catalogue: React.FC<propsData> = (props) => {
   // init
   useEffect(() => {
     const scanResult = scanner(props.contentMark)
-    scroller(scanResult.scannedDoms, setCurrentAnchor, props.scrollHash)
+    scroller(props.isDebounce ?? true, scanResult.scannedDoms, setCurrentAnchor, props.scrollHash)
     setCatalogueItemList(scanResult.result)
     scanResultRef.current = scanResult
     document.documentElement.style.scrollBehavior = props.scrollBehavior || 'smooth'
@@ -100,6 +101,8 @@ const Catalogue: React.FC<propsData> = (props) => {
                     paddingLeft: 10 * catalogueItem.paddingLeft
                   },
                   {
+                    color:
+                      currentAnchor === catalogueItem.anchor ? '#0eda29 !important' : '#888f80',
                     borderLeftColor: currentAnchor === catalogueItem.anchor ? '#0eda29' : '#eef1ea'
                   },
                   props.diyItem
