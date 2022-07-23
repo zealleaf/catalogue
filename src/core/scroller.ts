@@ -1,22 +1,19 @@
-import React from 'react'
 import { debounce } from '@/utils/debounce'
 import { throttle } from '@/utils/throttle'
 import { exportedDomNeeded } from './clickingTheCatalogueItemCausesThePageToScroll'
 
 type scrollHash = boolean
 
-function findWhichDomMarginTopCloser(
-  params: [HTMLAnchorElement[], React.Dispatch<React.SetStateAction<string>>, scrollHash]
-) {
-  const closerDom = params[0].sort((a, b) => {
+function findWhichDomMarginTopCloser(params: [scrollHash]) {
+  const selectedDomList = [...document.querySelectorAll("[data-selected='true']")]
+  const closerDom = selectedDomList.sort((a, b) => {
     return Math.abs(a.getBoundingClientRect().top) - Math.abs(b.getBoundingClientRect().top)
   })[0]
   const currentAnchor = closerDom.getAttribute('data-anchor') || ''
-
-  if (params[2]) {
+  if (params[0]) {
     location.hash = currentAnchor
   }
-  params[1](currentAnchor)
+  window.__currentAnchor__ = currentAnchor
 }
 
 const findWhichDomMarginTopCloserDebounced = debounce(
@@ -25,33 +22,31 @@ const findWhichDomMarginTopCloserDebounced = debounce(
 )
 const findWhichDomMarginTopCloserThrottled = throttle(
   findWhichDomMarginTopCloser as () => unknown,
-  20
+  50
 )
 
-const DE = document.documentElement
-
-function scroller(
-  isDebounce: boolean,
-  scannedDoms: unknown,
-  setCurrentAnchor: React.Dispatch<React.SetStateAction<string>>,
+interface IScroller {
+  isDebounce?: boolean
   scrollHash?: boolean
-) {
+}
+const DE = document.documentElement
+function scroller({ isDebounce = true, scrollHash }: IScroller) {
   window.addEventListener('scroll', () => {
     const flag$1 = Math.abs(exportedDomNeeded?.getBoundingClientRect().top || 0) < 1
     const flag$2 = Math.abs(DE.scrollHeight - (DE.scrollTop + DE.clientHeight)) < 1
 
-    if (window.clickHadLetScrollTopChange) {
+    if (window.__clickHadLetScrollTopChange__) {
       if (flag$1 || flag$2) {
-        window.clickHadLetScrollTopChange = false
+        window.__clickHadLetScrollTopChange__ = false
       }
       return
     }
 
     if (!flag$2) {
       if (isDebounce) {
-        findWhichDomMarginTopCloserDebounced(scannedDoms, setCurrentAnchor, scrollHash)
+        findWhichDomMarginTopCloserDebounced(scrollHash)
       } else {
-        findWhichDomMarginTopCloserThrottled(scannedDoms, setCurrentAnchor, scrollHash)
+        findWhichDomMarginTopCloserThrottled(scrollHash)
       }
     }
   })

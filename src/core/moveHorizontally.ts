@@ -20,7 +20,6 @@ function moveHorizontally(props: movePropsData) {
     moveCallBack(props)
     window.addEventListener('resize', moveCallBack.bind(null, props))
   }
-  return 1
 }
 
 export default moveHorizontally

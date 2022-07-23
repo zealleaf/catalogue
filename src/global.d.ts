@@ -1,3 +1,4 @@
 interface Window {
-  clickHadLetScrollTopChange: boolean
+  __clickHadLetScrollTopChange__: boolean
+  __currentAnchor__: any
 }
