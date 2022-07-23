@@ -52,6 +52,8 @@ const baseItemSV = `
 const Catalogue: React.FC<propsData> = (props) => {
   const [catalogueItemList, setCatalogueItemList] = useState<catalogueItemData[]>([])
   const [currentAnchor, setCurrentAnchor] = useState<string>('')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, refreshPage] = useState<null>()
   const scanResultRef = useRef<scannerReturn>()
 
   const clickFN = ([anchor]: string[]) => {
@@ -70,6 +72,8 @@ const Catalogue: React.FC<propsData> = (props) => {
     setTimeout(() => {
       setCatalogueItemList(scanResult.result || [])
     }, props.loadingDuration || 1000)
+    // Mount refreshPage to global object
+    window.__refreshPage__ = refreshPage
     // Register rolling listening events
     scroller({ isDebounce: props.isDebounce, scrollHash: props.scrollHash })
     // Handle URL anchor loading page
