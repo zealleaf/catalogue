@@ -16,7 +16,7 @@ interface propsData {
   diyItemsStyle?: string
   diyActiveItemColor?: string
   diyActiveItemBorderColor?: string
-  scrollBehavior?: 'smooth' | 'none'
+  scrollBehavior?: 'smooth' | 'auto'
   openMoveHorizontally?: boolean
   isDebounce?: boolean
   loadingDuration?: number
