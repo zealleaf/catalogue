@@ -22,8 +22,10 @@ specifiers:
   lint-staged: ^13.0.0
   picocolors: ^1.0.0
   prettier: ^2.6.2
+  prop-types: ^15.6.0
   react: ^18.1.0
   react-dom: ^18.1.0
+  rollup: ^2.0.0
   rollup-plugin-visualizer: ^5.7.1
   shelljs: ^0.8.5
   simple-git-hooks: ^2.8.0
@@ -54,9 +56,11 @@ devDependencies:
   lint-staged: 13.0.3
   picocolors: 1.0.0
   prettier: 2.7.1
+  prop-types: 15.8.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  rollup-plugin-visualizer: 5.7.1
+  rollup: 2.77.0
+  rollup-plugin-visualizer: 5.7.1_rollup@2.77.0
   shelljs: 0.8.5
   simple-git-hooks: 2.8.0
   typescript: 4.7.4
@@ -4257,7 +4261,7 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup-plugin-visualizer/5.7.1:
+  /rollup-plugin-visualizer/5.7.1_rollup@2.77.0:
     resolution:
       {
         integrity: sha512-E/IgOMnmXKlc6ICyf53ok1b6DxPeNVUs3R0kYYPuDpGfofT4bkiG+KtSMlGjMACFmfwbbqTVDZBIF7sMZVKJbA==
@@ -4269,6 +4273,7 @@ packages:
     dependencies:
       nanoid: 3.3.4
       open: 8.4.0
+      rollup: 2.77.0
       source-map: 0.7.4
       yargs: 17.5.1
     dev: true

@@ -1,6 +1,6 @@
 {
   "name": "@leafvein/catalogue",
-  "version": "0.2.4",
+  "version": "0.2.6",
   "description": "a component about catalogue",
   "author": "zealleaf",
   "license": "MIT",
@@ -53,8 +53,8 @@
   },
   "peerDependencies": {
     "@emotion/react": "^11",
-    "react": "^17|^18",
-    "react-dom": "^17|^18"
+    "react": "^17||^18",
+    "react-dom": "^17||^18"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -78,8 +78,10 @@
     "lint-staged": "^13.0.0",
     "picocolors": "^1.0.0",
     "prettier": "^2.6.2",
+    "prop-types": "^15.6.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "rollup": "^2.0.0",
     "rollup-plugin-visualizer": "^5.7.1",
     "shelljs": "^0.8.5",
     "simple-git-hooks": "^2.8.0",
