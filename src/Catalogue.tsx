@@ -13,13 +13,16 @@ interface propsData {
   contentMark: string
   scrollHash?: boolean
   diyWrapStyle?: string
-  diyItemStyle?: string
+  diyItemsStyle?: string
+  diyActiveItemColor?: string
+  diyActiveItemBorderColor?: string
   scrollBehavior?: 'smooth' | 'none'
   openMoveHorizontally?: boolean
   isDebounce?: boolean
   loadingDuration?: number
   diyLoadingStyle?: string
   diyLoadingChildren?: ReactJSXElement
+  contentLeft?: number
 }
 
 interface catalogueItemData {
@@ -83,6 +86,7 @@ const Catalogue: React.FC<propsData> = (props) => {
     if (props.openMoveHorizontally) {
       moveHorizontally({
         openMoveHorizontally: props.openMoveHorizontally || false,
+        contentLeft: props.contentLeft || 20,
         contentMark: props.contentMark,
         catalogueMark: '#leafvein-catalogue-wrap'
       })
@@ -111,10 +115,15 @@ const Catalogue: React.FC<propsData> = (props) => {
                   },
                   {
                     color:
-                      currentAnchor === catalogueItem.anchor ? '#0eda29 !important' : '#888f80',
-                    borderLeftColor: currentAnchor === catalogueItem.anchor ? '#0eda29' : '#eef1ea'
+                      currentAnchor === catalogueItem.anchor
+                        ? `${props.diyActiveItemColor || '#0eda29'}  !important`
+                        : '#888f80',
+                    borderLeftColor:
+                      currentAnchor === catalogueItem.anchor
+                        ? `${props.diyActiveItemBorderColor || '#0eda29'}`
+                        : '#eef1ea'
                   },
-                  props.diyItemStyle
+                  props.diyItemsStyle
                 )}
                 onClick={() => debounce(clickFN, 100)(catalogueItem.anchor)}
                 title={catalogueItem?.text?.replace(/<[^>]+>/g, '') || ''}

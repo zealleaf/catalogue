@@ -1,5 +1,6 @@
 interface movePropsData {
-  openMoveHorizontally?: true
+  openMoveHorizontally: true
+  contentLeft: number
   contentMark: string
   catalogueMark: string
 }
@@ -11,7 +12,7 @@ const moveCallBack = (props: movePropsData) => {
   const left = (contentDOM?.offsetLeft || 0) + (contentDOM?.offsetWidth || 0)
 
   if (catalogueDOM?.style) {
-    catalogueDOM.style.left = left + 20 + 'px'
+    catalogueDOM.style.left = left + props.contentLeft + 'px'
   }
 }
 
