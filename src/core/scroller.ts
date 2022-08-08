@@ -10,7 +10,7 @@ function findWhichDomMarginTopCloser(params: [scrollHash, any]) {
   const closerDom = selectedDomList.sort((a, b) => {
     return Math.abs(a.getBoundingClientRect().top) - Math.abs(b.getBoundingClientRect().top)
   })[0]
-  const currentAnchor = closerDom.getAttribute('data-anchor') || ''
+  const currentAnchor = closerDom?.getAttribute('data-anchor') || ''
 
   if (params[0]) {
     location.hash = currentAnchor
