@@ -1,0 +1,22 @@
+.baseWrap {
+  position: fixed;
+  width: 200px;
+  font-size: 16px;
+  text-align: start;
+  top: 20px;
+  right: 20px;
+}
+
+.baseWrap .baseItem {
+  cursor: pointer;
+  border-left: solid 2px #eef1ea;
+  transition: all 0.2s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.baseWrap .baseItem:hover {
+  color: black !important;
+}

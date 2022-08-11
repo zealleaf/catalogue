@@ -5,11 +5,17 @@ import react from '@vitejs/plugin-react'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 module.exports = defineConfig(({ mode }) => {
+  const IS_DEV = !!(mode === 'development')
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
   return {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src')
+      }
+    },
+    css: {
+      modules: {
+        generateScopedName: IS_DEV ? '[path][name]__[local]' : '[hash:base64:8]'
       }
     },
     build: {
@@ -21,12 +27,11 @@ module.exports = defineConfig(({ mode }) => {
         fileName: (format) => `index.${format}.js`
       },
       rollupOptions: {
-        external: ['react', 'react-dom', '@emotion/react'],
+        external: ['react', 'react-dom'],
         output: {
           globals: {
             react: 'React',
-            'react-dom': 'reactDom',
-            '@emotion/react': 'emotionReact'
+            'react-dom': 'reactDom'
           }
         }
       },
@@ -39,12 +44,7 @@ module.exports = defineConfig(({ mode }) => {
         : dts({
             outputDir: './types'
           }),
-      react({
-        babel: {
-          plugins: ['@emotion/babel-plugin']
-        },
-        jsxImportSource: '@emotion/react'
-      }),
+      react(),
       visualizer({ open: false })
     ]
   }
