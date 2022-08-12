@@ -42,10 +42,11 @@ const Catalogue: React.FC<propsData> = (props) => {
 
   const clickFN = ([anchor]: string[]) => {
     window.__clickHadLetScrollTopChange__ = true
-    window.__currentAnchor__ = anchor
     location.hash = anchor
     clickingTheCatalogueItemCausesThePageToScroll(anchor, scanResultRef.current?.scannedDoms)
   }
+
+  const clickFNDebounce = debounce(clickFN, 100)
 
   // init
   useEffect(() => {
@@ -106,7 +107,10 @@ const Catalogue: React.FC<propsData> = (props) => {
                       : '#eef1ea',
                   ...props.diyItemsStyle
                 }}
-                onClick={() => debounce(clickFN, 100)(catalogueItem.anchor)}
+                onClick={() => {
+                  clickFNDebounce(catalogueItem.anchor)
+                  setCurrentAnchor(catalogueItem.anchor)
+                }}
                 title={catalogueItem?.text?.replace(/<[^>]+>/g, '') || ''}
               >
                 {catalogueItem?.text?.replace(/<[^>]+>/g, '') || ''}
