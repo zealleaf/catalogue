@@ -109,6 +109,7 @@ const Catalogue: React.FC<propsData> = (props) => {
             id="leafvein-catalogue-item"
             className={styles.baseItem}
             key={catalogueItem.anchor}
+            data-active={currentAnchor === catalogueItem.anchor}
             style={{
               paddingLeft: 10 * catalogueItem.paddingLeft,
               color:
