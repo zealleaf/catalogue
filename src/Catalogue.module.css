@@ -1,10 +1,17 @@
-.baseWrap {
+.baseWrap,
+.loadingWrap {
   position: fixed;
   width: 200px;
   font-size: 16px;
   text-align: start;
   top: 20px;
   right: 20px;
+}
+.baseWrap {
+  animation: fadeIn 2s;
+}
+.loadingWrap {
+  animation: fadeOut 1.5s;
 }
 
 .baseWrap .baseItem {
@@ -19,4 +26,22 @@
 
 .baseWrap .baseItem:hover {
   color: black !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

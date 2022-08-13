@@ -1,6 +1,6 @@
 {
   "name": "@leafvein/catalogue",
-  "version": "0.3.2",
+  "version": "0.3.4",
   "description": "a component about catalogue",
   "author": "zealleaf",
   "license": "MIT",
@@ -85,5 +85,8 @@
     "vite": "^2.9.9",
     "vite-plugin-dts": "^1.2.0",
     "vitest": "^0.13.1"
+  },
+  "dependencies": {
+    "@leafvein/catalogue": "^0.3.3"
   }
 }

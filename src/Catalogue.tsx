@@ -64,7 +64,6 @@ const Catalogue: React.FC<propsData> = (props) => {
     // Handle URL anchor loading page
     scanResultRef.current = scanResult
     clickFN([decodeURIComponent(location.hash)])
-    setCurrentAnchor(decodeURIComponent(location.hash))
     // Process horizontal movement
     if (props.openMoveHorizontally) {
       moveHorizontally({
@@ -76,59 +75,63 @@ const Catalogue: React.FC<propsData> = (props) => {
     }
   }, [])
 
+  // init anchor
+  useEffect(() => {
+    if (catalogueItemList.length) {
+      setCurrentAnchor(decodeURIComponent(location.hash))
+    }
+  }, [catalogueItemList.length])
+
   // effect active item
   useEffect(() => {
     if (window.__currentAnchor__ !== '__$$reset$$__') setCurrentAnchor(window.__currentAnchor__)
     window.__currentAnchor__ = '__$$reset$$__'
   }, [window.__currentAnchor__])
-  console.log('props.diyActiveItemColor', props.diyActiveItemColor)
+
+  // if there is no have catalogue item list length
+  if (!catalogueItemList.length) {
+    return (
+      <div
+        className={styles.loadingWrap}
+        style={{ ...props.diyLoadingStyle }}
+        id="leafvein-catalogue-wrap"
+      >
+        {props.diyLoadingChildren ? props.diyLoadingChildren : '⌛️...'}
+      </div>
+    )
+  }
+
   return (
-    <>
-      {catalogueItemList.length ? (
-        <div
-          className={styles.baseWrap}
-          style={{ ...props.diyWrapStyle }}
-          id="leafvein-catalogue-wrap"
-        >
-          {catalogueItemList.map((catalogueItem) => {
-            return (
-              <div
-                id="leafvein-catalogue-item"
-                className={styles.baseItem}
-                key={catalogueItem.anchor}
-                style={{
-                  paddingLeft: 10 * catalogueItem.paddingLeft,
-                  color:
-                    currentAnchor === catalogueItem.anchor
-                      ? `${props.diyActiveItemColor || '#0eda29'}`
-                      : '#82808f',
-                  borderLeftColor:
-                    currentAnchor === catalogueItem.anchor
-                      ? `${props.diyActiveItemBorderColor || '#0eda29'}`
-                      : '#eef1ea',
-                  ...props.diyItemsStyle
-                }}
-                onClick={() => {
-                  clickFNDebounce(catalogueItem.anchor)
-                  setCurrentAnchor(catalogueItem.anchor)
-                }}
-                title={catalogueItem?.text?.replace(/<[^>]+>/g, '') || ''}
-              >
-                {catalogueItem?.text?.replace(/<[^>]+>/g, '') || ''}
-              </div>
-            )
-          })}
-        </div>
-      ) : (
-        <div
-          className={styles.baseWrap}
-          style={{ ...props.diyLoadingStyle }}
-          id="leafvein-catalogue-wrap"
-        >
-          {props.diyLoadingChildren ? props.diyLoadingChildren : '⌛️...'}
-        </div>
-      )}
-    </>
+    <div className={styles.baseWrap} style={{ ...props.diyWrapStyle }} id="leafvein-catalogue-wrap">
+      {catalogueItemList.map((catalogueItem) => {
+        return (
+          <div
+            id="leafvein-catalogue-item"
+            className={styles.baseItem}
+            key={catalogueItem.anchor}
+            style={{
+              paddingLeft: 10 * catalogueItem.paddingLeft,
+              color:
+                currentAnchor === catalogueItem.anchor
+                  ? `${props.diyActiveItemColor || '#0eda29'}`
+                  : '#82808f',
+              borderLeftColor:
+                currentAnchor === catalogueItem.anchor
+                  ? `${props.diyActiveItemBorderColor || '#0eda29'}`
+                  : '#eef1ea',
+              ...props.diyItemsStyle
+            }}
+            onClick={() => {
+              clickFNDebounce(catalogueItem.anchor)
+              setCurrentAnchor(catalogueItem.anchor)
+            }}
+            title={catalogueItem?.text?.replace(/<[^>]+>/g, '') || ''}
+          >
+            {catalogueItem?.text?.replace(/<[^>]+>/g, '') || ''}
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
