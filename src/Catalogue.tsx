@@ -64,6 +64,7 @@ const Catalogue: React.FC<propsData> = (props) => {
     // Handle URL anchor loading page
     scanResultRef.current = scanResult
     clickFN([decodeURIComponent(location.hash)])
+    setCurrentAnchor(decodeURIComponent(location.hash))
     // Process horizontal movement
     if (props.openMoveHorizontally) {
       moveHorizontally({
