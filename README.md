@@ -18,7 +18,7 @@ pnpm install @leafvein/catalogue
 ### 代码例子
 
 ```js
-import React from 'React'
+import React from 'react'
 import Catalogue from '@leafvein/catalogue'
 import '@leafvein/catalogue/lib/style.css'
 
