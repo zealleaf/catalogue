@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 
 interface movePropsData {
-  openMoveHorizontally: true
+  openMoveHorizontally: boolean
   contentLeft: number
   contentMark: string
   catalogueMark: string
@@ -19,9 +19,8 @@ const event_moveCallBack = (props: movePropsData) => {
 
 function useMoveHorizontally(props: movePropsData) {
   if (props.openMoveHorizontally) {
-    event_moveCallBack(props)
-
-    useEffect(() => {
+    useLayoutEffect(() => {
+      event_moveCallBack(props)
       window.addEventListener('resize', event_moveCallBack.bind(null, props))
       return () => {
         window.removeEventListener('resize', event_moveCallBack.bind(null, props))

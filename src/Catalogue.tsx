@@ -48,14 +48,12 @@ const Catalogue: React.FC<propsData> = (props) => {
   // Register rolling listening events
   useScroller({ isDebounce: props.isDebounce, scrollHash: props.scrollHash })
   // Process horizontal movement
-  if (props.openMoveHorizontally) {
-    useMoveHorizontally({
-      openMoveHorizontally: props.openMoveHorizontally || false,
-      contentLeft: props.contentLeft || 20,
-      contentMark: props.contentMark,
-      catalogueMark: '#leafvein-catalogue-wrap'
-    })
-  }
+  useMoveHorizontally({
+    openMoveHorizontally: props.openMoveHorizontally || false,
+    contentLeft: props.contentLeft || 20,
+    contentMark: props.contentMark,
+    catalogueMark: '#leafvein-catalogue-wrap'
+  })
 
   // init
   useEffect(() => {
