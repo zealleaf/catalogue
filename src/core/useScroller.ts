@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect } from 'react'
 import { debounce } from '@/utils/debounce'
 import { throttle } from '@/utils/throttle'
 import { exportedDomNeeded } from './clickingTheCatalogueItemCausesThePageToScroll'
@@ -25,6 +26,7 @@ const findWhichDomMarginTopCloserDebounced = debounce(
   findWhichDomMarginTopCloser as () => unknown,
   200
 )
+
 const findWhichDomMarginTopCloserThrottled = throttle(
   findWhichDomMarginTopCloser as () => unknown,
   50
@@ -34,27 +36,36 @@ interface IScroller {
   isDebounce?: boolean
   scrollHash?: boolean
 }
+
 const DE = document.documentElement
-function scroller({ isDebounce = true, scrollHash = false }: IScroller) {
-  window.addEventListener('scroll', () => {
-    const flag$1 = Math.abs(exportedDomNeeded?.getBoundingClientRect().top || 0) < 1
-    const flag$2 = Math.abs(DE.scrollHeight - (DE.scrollTop + DE.clientHeight)) < 1
 
-    if (window.__clickHadLetScrollTopChange__) {
-      if (flag$1 || flag$2) {
-        window.__clickHadLetScrollTopChange__ = false
-      }
-      return
-    }
+const event_handleScroll = (isDebounce: boolean, scrollHash: boolean) => {
+  const flag$1 = Math.abs(exportedDomNeeded?.getBoundingClientRect().top || 0) < 1
+  const flag$2 = Math.abs(DE.scrollHeight - (DE.scrollTop + DE.clientHeight)) < 1
 
-    if (!flag$2) {
-      if (isDebounce) {
-        findWhichDomMarginTopCloserDebounced(scrollHash)
-      } else {
-        findWhichDomMarginTopCloserThrottled(scrollHash)
-      }
+  if (window.__clickHadLetScrollTopChange__) {
+    if (flag$1 || flag$2) {
+      window.__clickHadLetScrollTopChange__ = false
     }
-  })
+    return
+  }
+
+  if (!flag$2) {
+    if (isDebounce) {
+      findWhichDomMarginTopCloserDebounced(scrollHash)
+    } else {
+      findWhichDomMarginTopCloserThrottled(scrollHash)
+    }
+  }
 }
 
-export default scroller
+function useScroller({ isDebounce = true, scrollHash = false }: IScroller) {
+  useEffect(() => {
+    window.addEventListener('scroll', event_handleScroll.bind(null, isDebounce, scrollHash))
+    return () => {
+      window.removeEventListener('scroll', event_handleScroll.bind(null, isDebounce, scrollHash))
+    }
+  }, [])
+}
+
+export default useScroller

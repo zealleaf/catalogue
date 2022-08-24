@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReactElement, useEffect, useRef, useState } from 'react'
 import clickingTheCatalogueItemCausesThePageToScroll from '@/core/clickingTheCatalogueItemCausesThePageToScroll'
 import scanner, { scannerReturn } from '@/core/scanner'
-import scroller from '@/core/scroller'
-import moveHorizontally from '@/core/moveHorizontally'
+import useScroller from '@/core/useScroller'
+import useMoveHorizontally from '@/core/useMoveHorizontally'
 import { debounce } from '@/utils/debounce'
 
 import styles from './Catalogue.module.css'
@@ -33,11 +34,8 @@ interface catalogueItemData {
 
 const Catalogue: React.FC<propsData> = (props) => {
   const [catalogueItemList, setCatalogueItemList] = useState<catalogueItemData[]>([])
-
   const [currentAnchor, setCurrentAnchor] = useState<string>('')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, refreshPage] = useState<null>()
-
   const scanResultRef = useRef<scannerReturn>()
 
   const clickFN = ([anchor]: string[]) => {
@@ -45,8 +43,19 @@ const Catalogue: React.FC<propsData> = (props) => {
     location.hash = anchor
     clickingTheCatalogueItemCausesThePageToScroll(anchor, scanResultRef.current?.scannedDoms)
   }
-
   const clickFNDebounce = debounce(clickFN, 100)
+
+  // Register rolling listening events
+  useScroller({ isDebounce: props.isDebounce, scrollHash: props.scrollHash })
+  // Process horizontal movement
+  if (props.openMoveHorizontally) {
+    useMoveHorizontally({
+      openMoveHorizontally: props.openMoveHorizontally || false,
+      contentLeft: props.contentLeft || 20,
+      contentMark: props.contentMark,
+      catalogueMark: '#leafvein-catalogue-wrap'
+    })
+  }
 
   // init
   useEffect(() => {
@@ -59,20 +68,9 @@ const Catalogue: React.FC<propsData> = (props) => {
     }, props.loadingDuration || 1000)
     // Mount refreshPage to global object
     window.__refreshPage__ = refreshPage
-    // Register rolling listening events
-    scroller({ isDebounce: props.isDebounce, scrollHash: props.scrollHash })
     // Handle URL anchor loading page
     scanResultRef.current = scanResult
     clickFN([decodeURIComponent(location.hash)])
-    // Process horizontal movement
-    if (props.openMoveHorizontally) {
-      moveHorizontally({
-        openMoveHorizontally: props.openMoveHorizontally || false,
-        contentLeft: props.contentLeft || 20,
-        contentMark: props.contentMark,
-        catalogueMark: '#leafvein-catalogue-wrap'
-      })
-    }
   }, [])
 
   // init anchor
