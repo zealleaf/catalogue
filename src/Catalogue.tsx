@@ -81,10 +81,11 @@ const Catalogue: React.FC<propsData> = (props) => {
     // Handle URL anchor loading page
     scanResultRef.current = scanResult
     clickFN([decodeURIComponent(location.hash)])
-    // Process smooth scrolling
-    document.documentElement.style.scrollBehavior = props.scrollBehavior || 'smooth'
-    // handle active anchor and wrap
+
     setTimeout(() => {
+      // Process smooth scrolling
+      document.documentElement.style.scrollBehavior = props.scrollBehavior || 'smooth'
+      // handle active anchor and wrap
       handleActiveAnchorAndWrap()
     }, 1050)
   }, [])
