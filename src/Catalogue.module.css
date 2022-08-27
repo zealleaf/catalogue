@@ -7,9 +7,18 @@
   top: 20px;
   right: 20px;
 }
+
 .baseWrap {
   animation: fadeIn 2s;
+  height: 300px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
+
+.baseWrap::-webkit-scrollbar {
+  width: 0px;
+}
+
 .loadingWrap {
   animation: fadeOut 1.5s;
 }

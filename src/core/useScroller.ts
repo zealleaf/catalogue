@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { debounce } from '@/utils/debounce'
 import { throttle } from '@/utils/throttle'
 import { exportedDomNeeded } from './clickingTheCatalogueItemCausesThePageToScroll'
@@ -11,20 +11,25 @@ function findWhichDomMarginTopCloser(params: [scrollHash, any]) {
   const closerDom = selectedDomList.sort((a, b) => {
     return Math.abs(a.getBoundingClientRect().top) - Math.abs(b.getBoundingClientRect().top)
   })[0]
-  const currentAnchor = closerDom?.getAttribute('data-anchor') || ''
 
-  if (params[0]) {
-    location.hash = currentAnchor
+  // delay to show
+  if (closerDom.getBoundingClientRect().top < 100) {
+    const currentAnchor = closerDom?.getAttribute('data-anchor') || ''
+
+    if (params[0]) {
+      location.hash = currentAnchor
+    }
+
+    // Mount currentAnchor on the global object
+    window.__currentAnchor__ = currentAnchor
+    // Trigger update
+    window.__refreshPage__(new Date().getTime())
   }
-  // Mount currentAnchor on the global object
-  window.__currentAnchor__ = currentAnchor
-  // Trigger update
-  window.__refreshPage__(new Date().getTime())
 }
 
 const findWhichDomMarginTopCloserDebounced = debounce(
   findWhichDomMarginTopCloser as () => unknown,
-  200
+  100
 )
 
 const findWhichDomMarginTopCloserThrottled = throttle(
@@ -60,7 +65,7 @@ const event_handleScroll = (isDebounce: boolean, scrollHash: boolean) => {
 }
 
 function useScroller({ isDebounce = true, scrollHash = false }: IScroller) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.addEventListener('scroll', event_handleScroll.bind(null, isDebounce, scrollHash))
     return () => {
       window.removeEventListener('scroll', event_handleScroll.bind(null, isDebounce, scrollHash))

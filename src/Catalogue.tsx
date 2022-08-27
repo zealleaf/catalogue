@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ReactElement, useEffect, useRef, useState } from 'react'
+import { ReactElement, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import clickingTheCatalogueItemCausesThePageToScroll from '@/core/clickingTheCatalogueItemCausesThePageToScroll'
 import scanner, { scannerReturn } from '@/core/scanner'
 import useScroller from '@/core/useScroller'
@@ -37,6 +37,8 @@ const Catalogue: React.FC<propsData> = (props) => {
   const [currentAnchor, setCurrentAnchor] = useState<string>('')
   const [_, refreshPage] = useState<null>()
   const scanResultRef = useRef<scannerReturn>()
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const activeAnchorRef = useRef<HTMLDivElement>(null)
 
   const clickFN = ([anchor]: string[]) => {
     window.__clickHadLetScrollTopChange__ = true
@@ -56,7 +58,7 @@ const Catalogue: React.FC<propsData> = (props) => {
   })
 
   // init
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Process smooth scrolling
     document.documentElement.style.scrollBehavior = props.scrollBehavior || 'smooth'
     // Scan main content And delay loading
@@ -84,6 +86,18 @@ const Catalogue: React.FC<propsData> = (props) => {
     window.__currentAnchor__ = '__$$reset$$__'
   }, [window.__currentAnchor__])
 
+  // handle active item and wrap
+  useEffect(() => {
+    const activeItemTop = activeAnchorRef.current?.getBoundingClientRect().top || 0
+    if (wrapRef.current) {
+      if (activeItemTop > 300) {
+        wrapRef.current.scrollTop = activeItemTop - 350
+      } else {
+        wrapRef.current.scrollTop = 0
+      }
+    }
+  }, [activeAnchorRef.current])
+
   // if there is no have catalogue item list length
   if (!catalogueItemList.length) {
     return (
@@ -98,10 +112,16 @@ const Catalogue: React.FC<propsData> = (props) => {
   }
 
   return (
-    <div className={styles.baseWrap} style={{ ...props.diyWrapStyle }} id="leafvein-catalogue-wrap">
+    <div
+      ref={wrapRef}
+      className={styles.baseWrap}
+      style={{ ...props.diyWrapStyle }}
+      id="leafvein-catalogue-wrap"
+    >
       {catalogueItemList.map((catalogueItem) => {
         return (
           <div
+            ref={currentAnchor === catalogueItem.anchor ? activeAnchorRef : null}
             id="leafvein-catalogue-item"
             className={styles.baseItem}
             key={catalogueItem.anchor}
