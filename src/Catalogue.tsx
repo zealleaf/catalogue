@@ -45,7 +45,19 @@ const Catalogue: React.FC<propsData> = (props) => {
     location.hash = anchor
     clickingTheCatalogueItemCausesThePageToScroll(anchor, scanResultRef.current?.scannedDoms)
   }
+
   const clickFNDebounce = debounce(clickFN, 100)
+
+  const handleActiveAnchorAndWrap = () => {
+    const activeItemTop = activeAnchorRef.current?.offsetTop || 0
+    if (wrapRef.current) {
+      if (activeItemTop > 150) {
+        wrapRef.current.scrollTop = activeItemTop - 150
+      } else {
+        wrapRef.current.scrollTop = 0
+      }
+    }
+  }
 
   // Register rolling listening events
   useScroller({ isDebounce: props.isDebounce, scrollHash: props.scrollHash })
@@ -59,8 +71,6 @@ const Catalogue: React.FC<propsData> = (props) => {
 
   // init
   useLayoutEffect(() => {
-    // Process smooth scrolling
-    document.documentElement.style.scrollBehavior = props.scrollBehavior || 'smooth'
     // Scan main content And delay loading
     const scanResult = scanner(props.contentMark)
     setTimeout(() => {
@@ -71,6 +81,12 @@ const Catalogue: React.FC<propsData> = (props) => {
     // Handle URL anchor loading page
     scanResultRef.current = scanResult
     clickFN([decodeURIComponent(location.hash)])
+    // Process smooth scrolling
+    document.documentElement.style.scrollBehavior = props.scrollBehavior || 'smooth'
+    // handle active anchor and wrap
+    setTimeout(() => {
+      handleActiveAnchorAndWrap()
+    }, 1050)
   }, [])
 
   // init anchor
@@ -86,16 +102,9 @@ const Catalogue: React.FC<propsData> = (props) => {
     window.__currentAnchor__ = '__$$reset$$__'
   }, [window.__currentAnchor__])
 
-  // handle active item and wrap
+  // handle active anchor and wrap
   useEffect(() => {
-    const activeItemTop = activeAnchorRef.current?.getBoundingClientRect().top || 0
-    if (wrapRef.current) {
-      if (activeItemTop > 300) {
-        wrapRef.current.scrollTop = activeItemTop - 350
-      } else {
-        wrapRef.current.scrollTop = 0
-      }
-    }
+    handleActiveAnchorAndWrap()
   }, [activeAnchorRef.current])
 
   // if there is no have catalogue item list length
