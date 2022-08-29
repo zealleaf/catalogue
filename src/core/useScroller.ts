@@ -29,7 +29,7 @@ function findWhichDomMarginTopCloser(params: [scrollHash, any]) {
 
 const findWhichDomMarginTopCloserDebounced = debounce(
   findWhichDomMarginTopCloser as () => unknown,
-  100
+  50
 )
 
 const findWhichDomMarginTopCloserThrottled = throttle(
