@@ -27,24 +27,23 @@ function findWhichDomMarginTopCloser(params: [scrollHash, any]) {
   }
 }
 
-const findWhichDomMarginTopCloserDebounced = debounce(
-  findWhichDomMarginTopCloser as () => unknown,
-  50
-)
-
-const findWhichDomMarginTopCloserThrottled = throttle(
-  findWhichDomMarginTopCloser as () => unknown,
-  50
-)
+// form a closure
+const findWhichDomMarginTopCloserDebounced = (delayTime: number) => {
+  return debounce(findWhichDomMarginTopCloser as () => unknown, delayTime)
+}
+const findWhichDomMarginTopCloserThrottled = (delayTime: number) => {
+  return throttle(findWhichDomMarginTopCloser as () => unknown, delayTime)
+}
 
 interface IScroller {
   isDebounce?: boolean
+  delayTime?: number
   scrollHash?: boolean
 }
 
 const DE = document.documentElement
 
-const event_handleScroll = (isDebounce: boolean, scrollHash: boolean) => {
+const event_handleScroll = (isDebounce: boolean, delayTime: number, scrollHash: boolean) => {
   const flag$1 = Math.abs(exportedDomNeeded?.getBoundingClientRect().top || 0) < 1
   const flag$2 = Math.abs(DE.scrollHeight - (DE.scrollTop + DE.clientHeight)) < 1
 
@@ -57,18 +56,24 @@ const event_handleScroll = (isDebounce: boolean, scrollHash: boolean) => {
 
   if (!flag$2) {
     if (isDebounce) {
-      findWhichDomMarginTopCloserDebounced(scrollHash)
+      findWhichDomMarginTopCloserDebounced(delayTime)(scrollHash)
     } else {
-      findWhichDomMarginTopCloserThrottled(scrollHash)
+      findWhichDomMarginTopCloserThrottled(delayTime)(scrollHash)
     }
   }
 }
 
-function useScroller({ isDebounce = true, scrollHash = false }: IScroller) {
+function useScroller({ isDebounce = true, delayTime = 50, scrollHash = false }: IScroller) {
   useLayoutEffect(() => {
-    window.addEventListener('scroll', event_handleScroll.bind(null, isDebounce, scrollHash))
+    window.addEventListener(
+      'scroll',
+      event_handleScroll.bind(null, isDebounce, delayTime, scrollHash)
+    )
     return () => {
-      window.removeEventListener('scroll', event_handleScroll.bind(null, isDebounce, scrollHash))
+      window.removeEventListener(
+        'scroll',
+        event_handleScroll.bind(null, isDebounce, delayTime, scrollHash)
+      )
     }
   }, [])
 }

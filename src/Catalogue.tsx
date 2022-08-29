@@ -13,6 +13,7 @@ interface propsData {
   contentMark: string
   contentLeft?: number
   isDebounce?: boolean
+  delayTime?: number
   scrollHash?: boolean
   scrollBehavior?: 'smooth' | 'auto'
   openMoveHorizontally?: boolean
@@ -60,7 +61,11 @@ const Catalogue: React.FC<propsData> = (props) => {
   }
 
   // Register rolling listening events
-  useScroller({ isDebounce: props.isDebounce, scrollHash: props.scrollHash })
+  useScroller({
+    isDebounce: props.isDebounce,
+    delayTime: props.delayTime,
+    scrollHash: props.scrollHash
+  })
   // Process horizontal movement
   useMoveHorizontally({
     openMoveHorizontally: props.openMoveHorizontally || false,

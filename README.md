@@ -43,6 +43,7 @@ export default APP
 | contentMark              | 提供一个主体内容的选择器，供目录组件               | string             | -        | latest |
 | contentLeft              | 自定义目录左边离主体内容有多远                     | number             | 20       | latest |
 | isDebounce               | 滚动屏幕时，目录 Item 的激活模式                   | boolean            | true     | latest |
+| delayTime                | 滚动事件出发频率                                   | number             | 50ms     | latest |
 | scrollHash               | 滚动页面是否使 URL 上的 hash 值一起跟着变化        | boolean            | false    | latest |
 | scrollBehavior           | 点击目录的 Item, 页面的滚动行为                    | 'smooth' \| 'auto' | 'smooth' | latest |
 | openMoveHorizontally     | 目录组件是否跟随主体内容随着屏幕宽度变化而一起移动 | boolean            | false    | latest |
