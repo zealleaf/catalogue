@@ -2,7 +2,7 @@
 import { useLayoutEffect } from 'react'
 import { debounce } from '@/utils/debounce'
 import { throttle } from '@/utils/throttle'
-import { exportedDomNeeded } from './clickingTheCatalogueItemCausesThePageToScroll'
+import { exportedDomNeeded } from './clicker'
 
 type scrollHash = boolean
 

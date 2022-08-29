@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReactElement, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import clickingTheCatalogueItemCausesThePageToScroll from '@/core/clickingTheCatalogueItemCausesThePageToScroll'
+import clickingTheCatalogueItemCausesThePageToScroll from '@/core/clicker'
 import scanner, { scannerReturn } from '@/core/scanner'
 import useScroller from '@/core/useScroller'
 import useMoveHorizontally from '@/core/useMoveHorizontally'
 import { debounce } from '@/utils/debounce'
 
-import styles from './Catalogue.module.css'
+import styles from './catalogue.module.css'
 
 /* ===type=== */
 interface propsData {
