@@ -1,7 +1,7 @@
 ## @leafvein/catalogue
 
 > 一个让你的网站内容具有目录的组件 📑  
-> 请看下方介绍以快速了解组件用法 or 个人网站上 look [传送门 🚪](https://zealleaf.me/treehouse/packages/@leafvein/catalogue)。
+> 请看下方介绍以快速了解组件用法 or 个人网站上 look [传送门 🚪](https://zealleaf.me/packages/@leafvein/catalogue)。
 
 ## 快速接入
 
@@ -57,4 +57,4 @@ export default APP
 
 ## changeLog
 
-[传送门 🚪](https://zealleaf.me/treehouse/packages/@leafvein/catalogue#changeLog)
+[传送门 🚪](https://zealleaf.me/packages/@leafvein/catalogue#changeLog)
