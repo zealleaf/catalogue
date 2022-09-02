@@ -1,3 +1,3 @@
-import Catalogue from '@/catalogue'
+import Catalogue from '@/_catalogue'
 
 export default Catalogue
