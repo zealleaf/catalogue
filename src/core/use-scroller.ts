@@ -9,11 +9,11 @@ type scrollHash = boolean
 function findWhichDomMarginTopCloser(params: [scrollHash, any]) {
   const selectedDomList = [...document.querySelectorAll("[data-selected='true']")]
   const closerDom = selectedDomList.sort((a, b) => {
-    return Math.abs(a.getBoundingClientRect().top) - Math.abs(b.getBoundingClientRect().top)
+    return Math.abs(a?.getBoundingClientRect().top) - Math.abs(b?.getBoundingClientRect().top)
   })[0]
 
   // delay to show
-  if (closerDom.getBoundingClientRect().top < 100) {
+  if (closerDom?.getBoundingClientRect && closerDom.getBoundingClientRect().top < 100) {
     const currentAnchor = closerDom?.getAttribute('data-anchor') || ''
 
     if (params[0]) {
