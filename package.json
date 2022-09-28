@@ -38,20 +38,20 @@
     "build:dev": "tsc && cross-env DIY_ENV=dev vite build",
     "build:prod": "tsc && cross-env DIY_ENV=prod vite build",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx --quiet ./",
-    "prepublishOnly": "pnpm run build:prod",
+    "prepublishOnly": "nr build:prod",
     "push": "esno scripts/push-to-github.ts",
     "release": "bumpp"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged --concurrent false",
-    "commit-msg": "pnpm exec esno scripts/commit-msg.ts $1"
+    "pre-commit": "na exec lint-staged --concurrent false",
+    "commit-msg": "na exec esno scripts/commit-msg.ts $1"
   },
   "lint-staged": {
     "*": [
       "prettier --write --ignore-unknown"
     ],
     "**/**.{js,jsx,ts,tsx,json}": [
-      "pnpm run lint"
+      "nr lint"
     ]
   },
   "devDependencies": {
