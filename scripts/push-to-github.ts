@@ -9,7 +9,7 @@ if (exec('git add .').code !== 0) {
   exit(1)
 }
 
-if (exec(`git commit -m "${msg}" `).code !== 0) {
+if (exec(`git commit -m ${msg} `).code !== 0) {
   echo('error: git commit failed!')
   exit(1)
 }

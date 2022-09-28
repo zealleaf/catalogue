@@ -2,11 +2,22 @@
   "name": "@leafvein/catalogue",
   "version": "0.5.8",
   "description": "a component about catalogue",
-  "author": "zealleaf",
+  "keywords": [
+    "ui",
+    "react",
+    "component",
+    "catalogue"
+  ],
+  "homepage": "https://github.com/zealleaf/catalogue#readme",
+  "bugs": {
+    "url": "https://github.com/zealleaf/catalogue/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zealleaf/catalogue.git"
+  },
   "license": "MIT",
-  "main": "lib/index.umd.js",
-  "module": "lib/index.es.js",
-  "types": "types/index.d.ts",
+  "author": "zealleaf",
   "exports": {
     ".": {
       "require": "./lib/index.umd.js",
@@ -15,31 +26,21 @@
     },
     "./lib/style.css": "./lib/style.css"
   },
+  "main": "lib/index.umd.js",
+  "module": "lib/index.es.js",
+  "types": "types/index.d.ts",
   "files": [
     "lib",
     "types"
   ],
-  "keywords": [
-    "ui",
-    "react",
-    "component",
-    "catalogue"
-  ],
-  "bugs": {
-    "url": "https://github.com/zealleaf/catalogue/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zealleaf/catalogue.git"
-  },
-  "homepage": "https://github.com/zealleaf/catalogue#readme",
   "scripts": {
+    "build:analysis": "tsc && cross-env DIY_ENV=analysis vite build",
     "build:dev": "tsc && cross-env DIY_ENV=dev vite build",
     "build:prod": "tsc && cross-env DIY_ENV=prod vite build",
-    "build:analysis": "tsc && cross-env DIY_ENV=analysis vite build",
-    "prepublishOnly": "pnpm run build:prod",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx --quiet ./",
-    "push": "esno scripts/push-to-github.ts"
+    "prepublishOnly": "pnpm run build:prod",
+    "push": "esno scripts/push-to-github.ts",
+    "release": "bumpp"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged --concurrent false",
@@ -53,10 +54,6 @@
       "pnpm run lint"
     ]
   },
-  "peerDependencies": {
-    "react": "^17 || ^18",
-    "react-dom": "^17 || ^18"
-  },
   "devDependencies": {
     "@types/node": "^17.0.40",
     "@types/react": "^18.0.11",
@@ -64,6 +61,7 @@
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "@vitejs/plugin-react": "^1.3.2",
+    "bumpp": "^8.2.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
@@ -87,5 +85,9 @@
     "vite": "^2.9.9",
     "vite-plugin-dts": "^1.2.0",
     "vitest": "^0.13.1"
+  },
+  "peerDependencies": {
+    "react": "^17 || ^18",
+    "react-dom": "^17 || ^18"
   }
 }
