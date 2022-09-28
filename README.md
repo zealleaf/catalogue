@@ -1,21 +1,18 @@
-## @leafvein/catalogue
+## Catalogue
 
-> 一个让你的网站内容具有目录的组件 📑  
-> 请看下方介绍以快速了解组件用法 or 个人网站上 look [传送门 🚪](https://zealleaf.me/packages/@leafvein/catalogue)。
+> Generate a catalogue from your website content 📑
 
-## 快速接入
+## Installation
 
-### 安装 @leafvein/catalogue
-
-通过 **npm** or **pnpm**
-
-```shell
-npm install @leafvein/catalogue
-or
-pnpm install @leafvein/catalogue
+```bash
+npm i @leafvein/catalogue
+# or
+pnpm i @leafvein/catalogue
 ```
 
-### 代码例子
+## Usage
+
+### Example
 
 ```js
 import React from 'react'
@@ -38,23 +35,23 @@ export default APP
 
 ## API
 
-| 参数                     | 说明                                               | 类型               | 默认值   | 版本   |
-| ------------------------ | -------------------------------------------------- | ------------------ | -------- | ------ |
-| contentMark              | 提供一个主体内容的选择器，供目录组件               | string             | -        | latest |
-| contentLeft              | 自定义目录左边离主体内容有多远                     | number             | 20       | latest |
-| isDebounce               | 滚动屏幕时，目录 Item 的激活模式                   | boolean            | true     | latest |
-| delayTime                | 滚动事件出发频率                                   | number             | 50ms     | latest |
-| scrollHash               | 滚动页面是否使 URL 上的 hash 值一起跟着变化        | boolean            | false    | latest |
-| scrollBehavior           | 点击目录的 Item, 页面的滚动行为                    | 'smooth' \| 'auto' | 'smooth' | latest |
-| openMoveHorizontally     | 目录组件是否跟随主体内容随着屏幕宽度变化而一起移动 | boolean            | false    | latest |
-| loadingDuration          | 目录加载前 loading 持续时间                        | number             | 500ms    | latest |
-| diyLoadingStyle          | 自定义 loading 样式 like {width: "100px"}          | object             | true     | latest |
-| diyLoadingChildren       | 自定义 loading 组件                                | ReactElement       | -        | latest |
-| diyWrapStyle             | 自定义目录 Wrap 样式 like {width: "100px"}         | object             | -        | latest |
-| diyItemsStyle            | 自定义目录 Items 样式 like {width: "100px"}        | object             | -        | latest |
-| diyActiveItemColor       | 自定义激活目录 Item 字体颜色 like "#000"           | string             | -        | latest |
-| diyActiveItemBorderColor | 自定义激活目录 Item 边框颜色 like "#000"           | string             | -        | latest |
+| Property                 | Description                                                                              | Type               | Default  | Version |
+| ------------------------ | ---------------------------------------------------------------------------------------- | ------------------ | -------- | ------- |
+| contentMark              | Provides a body content selector for the catalog component                               | string             | -        |         |
+| contentLeft              | How far is the left side of the custom catalogue from the main content                   | number             | 20       |         |
+| isDebounce               | Activation mode of the catalogue item when scrolling the screen                          | boolean            | true     |         |
+| delayTime                | Rolling event departure frequency                                                        | number             | 50ms     |         |
+| scrollHash               | Whether scrolling the page makes the hash value on the URL change with it                | boolean            | false    |         |
+| scrollBehavior           | Click on the Item of the catalogue, the scrolling behavior of the page                   | 'smooth' \| 'auto' | 'smooth' |         |
+| openMoveHorizontally     | Whether the catalogue component follows the body content and moves with the screen width | boolean            | false    |         |
+| loadingDuration          | loading duration before catalogue loads                                                  | number             | 500ms    |         |
+| diyLoadingStyle          | Custom loading style like {width: "100px"}                                               | object             | true     |         |
+| diyLoadingChildren       | Custom loading component                                                                 | ReactElement       | -        |         |
+| diyWrapStyle             | Custom Wrap style like {width: "100px"}                                                  | object             | -        |         |
+| diyItemsStyle            | Custom Items style like {width: "100px"}                                                 | object             | -        |         |
+| diyActiveItemColor       | Customize Active Catalogue Item font color like "#000"                                   | string             | -        |         |
+| diyActiveItemBorderColor | Customize Active Catalogue Item border color like "#000"                                 | string             | -        |         |
 
-## changeLog
+## License
 
-[传送门 🚪](https://zealleaf.me/packages/@leafvein/catalogue#changeLog)
+MIT
