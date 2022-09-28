@@ -40,6 +40,6 @@ jobs:
         run: nr prepublishOnly
 
       - name: Publish to NPM
-        run: npm publish --access=public
+        run: na publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
