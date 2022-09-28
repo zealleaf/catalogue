@@ -39,7 +39,6 @@
     "build:prod": "tsc && cross-env DIY_ENV=prod vite build",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx --quiet ./",
     "prepublishOnly": "nr build:prod",
-    "push": "esno scripts/push-to-github.ts",
     "release": "bumpp"
   },
   "simple-git-hooks": {
