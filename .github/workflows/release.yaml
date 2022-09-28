@@ -38,10 +38,7 @@ jobs:
       - name: PrepublishOnly
         run: nr prepublishOnly
 
-      - name: Publish to the npm registry
-        uses: 'primer/publish@v3'
+      - name: Publish to NPM
+        run: npm publish --access=public
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        with:
-          default_branch: 'main'
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
