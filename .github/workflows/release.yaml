@@ -43,7 +43,7 @@ jobs:
       #   env:
       #     NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-      - name: 'Publish to the npm registry'
+      - name: Publish to the npm registry
         uses: primer/publish@3
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
