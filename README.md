@@ -2,6 +2,8 @@
 
 > Generate a catalogue from your website content 📑
 
+![npm version](https://img.shields.io/npm/v/@leafvein/catalogue)
+
 ## Installation
 
 ```bash
