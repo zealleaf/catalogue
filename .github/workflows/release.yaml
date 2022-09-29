@@ -36,9 +36,6 @@ jobs:
       - name: Install
         run: nci
 
-      - name: PrepublishOnly
-        run: nr prepublishOnly
-
       - name: Publish to NPM
         run: na publish --access public --no-git-checks
         env:
