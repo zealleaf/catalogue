@@ -5,10 +5,8 @@ import scanner, { scannerReturn } from '@/core/scanner'
 import useScroller from '@/core/use-scroller'
 import useMoveHorizontally from '@/core/use-move-horizontally'
 import { debounce } from '@/utils/debounce'
-
 import styles from './catalogue.module.css'
 
-/* ===type=== */
 interface propsData {
   contentMark: string
   contentLeft?: number

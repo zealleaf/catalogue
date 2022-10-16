@@ -10,7 +10,7 @@ interface movePropsData {
 const event_moveCallBack = (props: movePropsData) => {
   const contentDOM: HTMLDivElement | null = document.querySelector(props.contentMark)
   const catalogueDOM: HTMLDivElement | null = document.querySelector(props.catalogueMark)
-  const left = (contentDOM?.offsetLeft || 0) + (contentDOM?.offsetWidth || 0)
+  const left = (contentDOM?.getBoundingClientRect().left || 0) + (contentDOM?.offsetWidth || 0)
 
   if (catalogueDOM?.style) {
     catalogueDOM.style.left = left + props.contentLeft + 'px'
